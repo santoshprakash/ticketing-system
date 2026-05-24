@@ -1,0 +1,39 @@
+.upload-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.attachments {
+  display: grid;
+  gap: 0.75rem;
+
+  article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 0.85rem;
+  }
+
+  mat-icon {
+    color: var(--color-brand);
+  }
+
+  strong,
+  span {
+    display: block;
+  }
+
+  strong {
+    color: var(--color-text);
+  }
+
+  span {
+    margin-top: 0.2rem;
+    color: var(--color-muted-text);
+    font-size: 0.85rem;
+  }
+}

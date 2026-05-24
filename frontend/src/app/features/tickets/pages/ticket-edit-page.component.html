@@ -1,0 +1,52 @@
+@if (ticket$ | async; as ticket) {
+  <app-page-header eyebrow="Tickets" [title]="'Edit ' + ticket.ticketNumber" description="Update the service request details while preserving ticket history.">
+    <a mat-stroked-button [routerLink]="['/tickets', ticket.id]">
+      <mat-icon>arrow_back</mat-icon>
+      Back to ticket
+    </a>
+  </app-page-header>
+
+  <mat-card class="surface ticket-form">
+    <form [formGroup]="form" (ngSubmit)="submit(ticket.id)">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+        <mat-error>Title must be 5 to 150 characters.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="7" formControlName="description"></textarea>
+        <mat-error>Description must be at least 20 characters.</mat-error>
+      </mat-form-field>
+
+      <div class="form-grid">
+        <mat-form-field appearance="fill">
+          <mat-label>Priority</mat-label>
+          <mat-select formControlName="priority">
+            @for (priority of priorities; track priority) {
+              <mat-option [value]="priority">{{ priority }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            @for (category of categories; track category) {
+              <mat-option [value]="category">{{ category }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <footer>
+        <button mat-stroked-button type="button" [routerLink]="['/tickets', ticket.id]">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+          <mat-icon>save</mat-icon>
+          Save changes
+        </button>
+      </footer>
+    </form>
+  </mat-card>
+}

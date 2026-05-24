@@ -1,0 +1,195 @@
+<app-page-header eyebrow="Admin" title="Administration" description="Manage all users, module access, ticket categories, and privileged operations.">
+  <button mat-stroked-button type="button" (click)="loadData()">
+    <mat-icon>refresh</mat-icon>
+    Refresh
+  </button>
+</app-page-header>
+
+<section class="admin-grid" aria-label="Administration metrics">
+  @for (metric of metrics(); track metric.label) {
+    <app-metric-card [label]="metric.label" [value]="metric.value" [caption]="metric.caption" [icon]="metric.icon" [tone]="metric.tone" />
+  }
+</section>
+
+<section class="admin-workspace">
+  <mat-card class="surface admin-card">
+    <div class="section-heading">
+      <div>
+        <p>User governance</p>
+        <h2>Add users for any role</h2>
+      </div>
+      <mat-icon>manage_accounts</mat-icon>
+    </div>
+
+    <form class="admin-form" [formGroup]="userForm" (ngSubmit)="createUser()">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Full name</mat-label>
+        <input matInput formControlName="fullName" autocomplete="name" />
+        @if (userForm.controls.fullName.hasError('required')) {
+          <mat-error>Full name is required.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" autocomplete="email" />
+        @if (userForm.controls.email.hasError('email')) {
+          <mat-error>Enter a valid email.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" autocomplete="new-password" />
+        <mat-hint>Minimum 12 characters.</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="phoneNumber" autocomplete="tel" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          @for (role of roleOptions; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="savingUser()">
+        <mat-icon>{{ savingUser() ? 'hourglass_top' : 'person_add' }}</mat-icon>
+        {{ savingUser() ? 'Creating...' : 'Create user' }}
+      </button>
+    </form>
+  </mat-card>
+
+  <mat-card class="surface admin-card">
+    <div class="section-heading">
+      <div>
+        <p>Ticket catalog</p>
+        <h2>Add ticket categories</h2>
+      </div>
+      <mat-icon>category</mat-icon>
+    </div>
+
+    <form class="admin-form ticket-type-form" [formGroup]="ticketTypeForm" (ngSubmit)="createTicketType()">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Code</mat-label>
+        <input matInput formControlName="code" placeholder="SECURITY" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Security incident" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field field--wide">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3"></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" [disabled]="savingTicketType()">
+        <mat-icon>add</mat-icon>
+        Add category
+      </button>
+    </form>
+
+    <mat-divider />
+
+    <div class="type-list">
+      @for (ticketType of ticketTypes(); track ticketType.id) {
+        <article class="type-item">
+          <div>
+            <strong>{{ ticketType.name }}</strong>
+            <span>{{ ticketType.code }}</span>
+            <p>{{ ticketType.description || 'No description provided.' }}</p>
+          </div>
+          <button mat-icon-button type="button" aria-label="Delete ticket type" (click)="deleteTicketType(ticketType)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </article>
+      }
+    </div>
+  </mat-card>
+</section>
+
+<mat-card class="surface users-card">
+  <div class="section-heading">
+    <div>
+      <p>Module access</p>
+      <h2>All users and access controls</h2>
+      <span>Super admin can view every user, reset passwords, and change module access. Super admin keeps full platform access.</span>
+    </div>
+    <mat-icon>admin_panel_settings</mat-icon>
+  </div>
+
+  <div class="users-table" role="table" aria-label="User module access">
+    <div class="users-table__header" role="row">
+      <span>User</span>
+      <span>Role</span>
+      <span>Modules</span>
+      <span>Created</span>
+      <span>Actions</span>
+    </div>
+
+    @for (user of users(); track user.id) {
+      <div class="users-table__row" role="row">
+        <div class="user-cell">
+          <strong>{{ user.fullName }}</strong>
+          <span>{{ user.email }}</span>
+          @if (user.superAdmin) {
+            <em>Super admin</em>
+          }
+        </div>
+        <span class="role-pill">{{ user.role }}</span>
+        <div class="module-list">
+          @for (module of moduleOptions; track module.code) {
+            <mat-checkbox
+              [checked]="user.moduleAccess.includes(module.code)"
+              [disabled]="!canToggle(user, module.code)"
+              (change)="toggleModule(user, module.code, $event)"
+            >
+              <mat-icon aria-hidden="true">{{ module.icon }}</mat-icon>
+              {{ module.label }}
+            </mat-checkbox>
+          }
+        </div>
+        <span class="created-at">{{ user.createdAt | date: 'mediumDate' }}</span>
+        <div class="row-actions">
+          <button mat-stroked-button type="button" [disabled]="!accessService.superAdmin()" (click)="startPasswordReset(user)">
+            <mat-icon>password</mat-icon>
+            Reset
+          </button>
+          <button mat-stroked-button type="button" color="warn" [disabled]="user.superAdmin" (click)="deleteUser(user)">
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        </div>
+      </div>
+      @if (resettingUserId() === user.id) {
+        <form class="password-reset-row" [formGroup]="resetPasswordForm" (ngSubmit)="resetUserPassword()">
+          <div>
+            <strong>Reset password for {{ user.fullName }}</strong>
+            <span>{{ user.email }}</span>
+          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>New password</mat-label>
+            <input matInput type="password" formControlName="newPassword" autocomplete="new-password" />
+            @if (resetPasswordForm.controls.newPassword.invalid && resetPasswordForm.controls.newPassword.touched) {
+              <mat-error>Use at least 12 characters with upper, lower, number, and special character.</mat-error>
+            }
+          </mat-form-field>
+          <div class="row-actions">
+            <button mat-button type="button" (click)="cancelPasswordReset()">Cancel</button>
+            <button mat-flat-button color="primary" type="submit">
+              <mat-icon>save</mat-icon>
+              Save password
+            </button>
+          </div>
+        </form>
+      }
+    }
+  </div>
+</mat-card>

@@ -1,0 +1,8 @@
+<article class="metric-card" [class]="'tone-' + tone()">
+  <div>
+    <span class="label">{{ label() }}</span>
+    <strong>{{ value() }}</strong>
+    <small>{{ caption() }}</small>
+  </div>
+  <mat-icon aria-hidden="true">{{ icon() }}</mat-icon>
+</article>

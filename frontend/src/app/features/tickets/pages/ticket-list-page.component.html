@@ -1,0 +1,113 @@
+<app-page-header eyebrow="Tickets" title="Ticket queue" description="Search, filter, and triage active customer service requests.">
+  <a mat-flat-button color="primary" routerLink="/tickets/new">
+    <mat-icon>add</mat-icon>
+    New ticket
+  </a>
+</app-page-header>
+
+<section class="ticket-list">
+  <mat-card class="filters surface" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Search tickets</mat-label>
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput formControlName="search" placeholder="Ticket number, title, or customer">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="">All statuses</mat-option>
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{ status }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="">All priorities</mat-option>
+        @for (priority of priorities; track priority) {
+          <mat-option [value]="priority">{{ priority }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <input matInput formControlName="category" placeholder="Access, billing, hardware">
+    </mat-form-field>
+    <button mat-stroked-button type="button" (click)="resetFilters()">
+      <mat-icon>filter_alt_off</mat-icon>
+      Reset
+    </button>
+  </mat-card>
+
+  <mat-card class="surface table-shell">
+    @if (tickets$ | async; as page) {
+      @if (page.content.length) {
+        <div class="table-scroll">
+          <table mat-table matSort [dataSource]="page.content" class="w-full" (matSortChange)="sortChanged($event)">
+            <ng-container matColumnDef="ticketNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket</th>
+              <td mat-cell *matCellDef="let ticket">
+                <a class="ticket-link" [routerLink]="['/tickets', ticket.id]">{{ ticket.ticketNumber }}</a>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef>Title</th>
+              <td mat-cell *matCellDef="let ticket">
+                <span class="title">{{ ticket.title }}</span>
+                <small>{{ ticket.description }}</small>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let ticket"><app-status-chip [label]="ticket.status" /></td>
+            </ng-container>
+
+            <ng-container matColumnDef="priority">
+              <th mat-header-cell *matHeaderCellDef>Priority</th>
+              <td mat-cell *matCellDef="let ticket"><app-status-chip [label]="ticket.priority" /></td>
+            </ng-container>
+
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Category</th>
+              <td mat-cell *matCellDef="let ticket">{{ ticket.category }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="assignee">
+              <th mat-header-cell *matHeaderCellDef>Assignee</th>
+              <td mat-cell *matCellDef="let ticket">{{ ticket.assignedTo || 'Unassigned' }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="sla">
+              <th mat-header-cell *matHeaderCellDef>SLA</th>
+              <td mat-cell *matCellDef="let ticket">
+                <span class="sla" [class.breached]="ticket.slaBreached">{{ ticket.slaBreached ? 'Breached' : 'On track' }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedAt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated</th>
+              <td mat-cell *matCellDef="let ticket">{{ ticket.updatedAt | date: 'mediumDate' }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columns"></tr>
+            <tr mat-row *matRowDef="let row; columns: columns"></tr>
+          </table>
+        </div>
+        <mat-paginator [length]="page.totalElements" [pageIndex]="page.number" [pageSize]="page.size" [pageSizeOptions]="[10, 20, 50]" (page)="handlePage($event)" />
+      } @else {
+        <app-empty-state icon="confirmation_number" title="No tickets found" description="Adjust filters or create a new ticket to start the workflow.">
+          <a mat-flat-button color="primary" routerLink="/tickets/new">Create ticket</a>
+        </app-empty-state>
+      }
+    } @else {
+      <div class="skeleton-list">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    }
+  </mat-card>
+</section>

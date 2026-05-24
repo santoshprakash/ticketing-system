@@ -1,0 +1,775 @@
+[12:54 pm, 18/5/2026] S. P.: Build Enterprise Service Ticketing System End-to-End
+
+Since you are using Anthropic Claude for development, the best approach is:
+
+Small iterative prompts
+Controlled context
+Feature-by-feature generation
+Always ask Claude to analyze before coding
+Always protect existing code
+Always request tests
+
+This is the exact enterprise workflow senior architects use with AI-assisted development.
+
+PROJECT INITIALIZATION
+
+Use this FIRST in Claude Project Instructions or first chat.
+
+You are a Principal Full Stack Architect and Senior Staff Engineer.
+
+Your role:
+- Build enterprise-grade scalable applications
+- Follow clean architecture
+- Follow SOLID principles
+- Write production-ready code
+- Avoid shortcuts and demo-level implementations
+- Always think before coding
+- Never bre…
+[2:08 pm, 22/5/2026] S. P.: Build Enterprise Service Ticketing System End-to-End
+
+Since you are using Anthropic Claude for development, the best approach is:
+
+Small iterative prompts
+Controlled context
+Feature-by-feature generation
+Always ask Claude to analyze before coding
+Always protect existing code
+Always request tests
+
+This is the exact enterprise workflow senior architects use with AI-assisted development.
+
+PROJECT INITIALIZATION
+
+Use this FIRST in Claude Project Instructions or first chat.
+
+You are a Principal Full Stack Architect and Senior Staff Engineer.
+
+Your role:
+- Build enterprise-grade scalable applications
+- Follow clean architecture
+- Follow SOLID principles
+- Write production-ready code
+- Avoid shortcuts and demo-level implementations
+- Always think before coding
+- Never break existing functionality
+- Analyze impact before modifications
+- Generate maintainable reusable code
+
+Tech stack:
+Frontend:
+- Angular 18
+- Angular Material
+- Tailwind CSS
+- RxJS
+
+Backend:
+- Java 21
+- Spring Boot 3
+- Spring Security
+- JWT Authentication
+- PostgreSQL
+- JPA/Hibernate
+- Flyway
+
+DevOps:
+- Docker
+- Docker Compose
+- Kubernetes/OpenShift
+- GitHub Actions
+
+Testing:
+- JUnit 5
+- Mockito
+- Jasmine/Karma
+- Cypress
+
+Project:
+Enterprise Service Ticketing System
+
+Roles:
+- CUSTOMER
+- ADMIN
+- SERVICE_MANAGER
+
+Modules:
+1. User Portal
+2. Admin Portal
+3. Service Manager Portal
+
+Core Features:
+- Ticket creation
+- Ticket assignment
+- Ticket servicing
+- Ticket resolution
+- Ticket comments
+- Ticket history
+- Dashboard metrics
+- SLA tracking
+
+Rules:
+- Always provide folder structure
+- Always generate API contracts
+- Always include validation
+- Always include exception handling
+- Always include unit tests
+- Always include integration tests
+- Always explain architecture decisions
+- Always provide run commands
+- Always generate secure code
+- Always use DTO pattern
+- Always use layered architecture
+- Always optimize for scalability
+
+Before writing code:
+1. Analyze requirements
+2. Explain approach
+3. Identify risks
+4. Explain dependencies
+
+After writing code:
+1. Explain files created
+2. Explain how to run
+3. Explain test strategy
+4. Explain future scalability
+
+SYSTEM DESIGN
+Design a complete enterprise-grade architecture for Service Ticketing System.
+
+Modules:
+1. Customer Portal
+2. Admin Portal
+3. Service Manager Portal
+
+Features:
+- Authentication
+- Authorization
+- Ticket lifecycle
+- Dashboard
+- Notifications
+- SLA management
+- Audit logging
+
+Provide:
+1. High-level architecture
+2. Frontend architecture
+3. Backend architecture
+4. Database architecture
+5. Deployment architecture
+6. API design strategy
+7. Security architecture
+8. Folder structure
+9. Microservice readiness strategy
+10. Logging strategy
+11. Error handling strategy
+
+Also provide:
+- Sequence diagrams
+- Component diagrams
+- ER diagram
+- Deployment diagram
+
+Tech Stack:
+Angular 18
+Spring Boot 3
+PostgreSQL
+Docker
+OpenShift
+
+DATABASE DESIGN
+Design optimized PostgreSQL database schema for Service Ticketing System.
+
+Entities:
+- users
+- roles
+- tickets
+- ticket_comments
+- ticket_history
+- ticket_attachments
+- assignments
+- notifications
+- audit_logs
+
+Requirements:
+- Proper indexing
+- Foreign keys
+- UUID support
+- Audit fields
+- Soft delete support
+- Ticket priorities
+- SLA tracking
+- Escalation support
+
+Generate:
+1. ER diagram
+2. PostgreSQL scripts
+3. Flyway migration scripts
+4. Sample seed data
+5. Index optimization strategy
+6. Query optimization recommendations
+
+BACKEND DEVELOPMENT
+Generate enterprise-grade Spring Boot 3 project setup.
+
+Requirements:
+- Java 21
+- Maven
+- PostgreSQL
+- Flyway
+- Spring Security
+- JWT
+- Swagger/OpenAPI
+- Docker support
+- Global exception handling
+- Validation framework
+- Logging
+- Health checks
+
+Generate:
+1. Folder structure
+2. pom.xml
+3. application.yml
+4. Dockerfile
+5. docker-compose.yml
+6. Base configuration classes
+
+Architecture:
+- controller
+- service
+- repository
+- dto
+- entity
+- mapper
+- config
+- exception
+- security
+
+GENERATE AUTHENTICATION MODULE
+Generate enterprise authentication module.
+
+Features:
+- Register
+- Login
+- JWT authentication
+- Refresh token
+- Forgot password
+- Reset password
+- Role-based authorization
+
+Roles:
+- CUSTOMER
+- ADMIN
+- SERVICE_MANAGER
+
+Requirements:
+- Secure password hashing
+- JWT filters
+- Spring Security config
+- DTO validation
+- Exception handling
+- Audit logging
+
+Generate:
+1. Entity classes
+2. DTOs
+3. Repository layer
+4. Service layer
+5. Controllers
+6. JWT utility
+7. Security configuration
+8. Unit tests
+9. Integration tests
+
+Also provide:
+- API request/response examples
+- Postman collection
+
+GENERATE TICKET MODULE
+Generate complete Ticket Management module.
+
+Features:
+- Create ticket
+- Update ticket
+- Assign ticket
+- Reassign ticket
+- Change status
+- Add comments
+- Add attachments
+- Ticket history tracking
+- SLA tracking
+- Resolve ticket
+- Reopen ticket
+
+Requirements:
+- Pagination
+- Sorting
+- Filtering
+- Validation
+- Audit logging
+- Exception handling
+- Secure APIs
+
+Generate:
+1. Entity classes
+2. DTOs
+3. Repositories
+4. Services
+5. Controllers
+6. Mappers
+7. Unit tests
+8. Integration tests
+
+Ticket statuses:
+- OPEN
+- ASSIGNED
+- IN_PROGRESS
+- RESOLVED
+- CLOSED
+- REOPENED
+
+GENERATE DASHBOARD APIs
+Generate dashboard APIs for Admin and Service Manager portals.
+
+Dashboard metrics:
+- Total tickets
+- Open tickets
+- Assigned tickets
+- SLA violations
+- Resolution time
+- Ticket trends
+- User statistics
+
+Requirements:
+- Optimized queries
+- Aggregation support
+- Performance optimization
+- Caching strategy
+
+Generate:
+1. APIs
+2. Service layer
+3. Query optimization
+4. Unit tests
+
+Sample Data Requirements:
+- Create minimum 2 users for each role
+- Create 2-3 entries into all tables
+- Create sample tickets with different statuses and priorities
+- Postman req/ res Collection for all the end points 
+
+Security Point 
+- modify all GET method to POST method.
+- All request and response need to be encrypted
+
+ 
+
+
+
+FRONTEND DEVELOPMENT — GENERATE COMPLETE ANGULAR 18 ENTERPRISE APPLICATION
+
+Generate a complete enterprise-grade Angular 18 application architecture with modern UI/UX, scalable module structure, reusable components, and production-ready code.
+
+The application should feel like a premium SaaS enterprise platform similar to:
+- Jira
+- ServiceNow
+- Salesforce
+- Linear
+- Atlassian
+- Freshservice
+
+The final result must have the best possible UI design, enterprise look and feel, excellent user experience, and full responsive web design support.
+
+---------------------------------------------------
+TECH STACK
+---------------------------------------------------
+
+Use:
+- Angular 18
+- Angular Material
+- Tailwind CSS
+- SCSS
+- RxJS
+- Angular Router
+- Reactive Forms
+- HttpClient
+- JWT Authentication
+- Chart library (ngx-charts / chart.js / ApexCharts)
+- Unit testing with Jasmine/Karma
+- Clean scalable enterprise folder architecture
+
+---------------------------------------------------
+GLOBAL APPLICATION REQUIREMENTS
+---------------------------------------------------
+
+Build a production-ready enterprise application with:
+
+- Modern enterprise-grade UI/UX
+- Premium SaaS application look and feel
+- Clean and maintainable Angular architecture
+- Responsive Web Design (RWD)
+- Mobile-first approach
+- Desktop + Laptop + Tablet + Mobile support
+- Lazy-loaded feature modules
+- Route guards
+- JWT interceptor
+- Environment configuration management
+- Shared UI component library
+- Reusable business services
+- API-ready integration layer
+- Error handling strategy
+- Global loading indicators
+- Skeleton loaders where useful
+- Notification/toast system
+- Form validation with user-friendly messages
+- Accessibility support
+- Keyboard navigation support
+- Reusable dialog system
+- Theme support:
+  - Light mode
+  - Dark mode
+
+---------------------------------------------------
+DESIGN SYSTEM REQUIREMENTS
+---------------------------------------------------
+
+Apply a premium modern design system across ALL modules and pages.
+
+Design expectations:
+- Enterprise SaaS quality UI
+- Elegant layout spacing
+- Excellent typography hierarchy
+- Modern cards with subtle shadows
+- Rounded corners
+- Beautiful page headers
+- Responsive tables
+- Clean forms
+- Professional sidebar navigation
+- Sticky toolbar/header
+- Hover states
+- Smooth transitions
+- Micro-interactions
+- Status chips
+- Priority indicators
+- Badges
+- Empty states
+- Loading states
+- Error states
+- Success states
+
+The UI should feel polished, premium, modern, and production-ready.
+
+---------------------------------------------------
+PROJECT MODULES
+---------------------------------------------------
+
+Generate complete architecture for:
+
+- auth
+- dashboard
+- tickets
+- admin
+- service-manager
+- shared
+- core
+
+---------------------------------------------------
+GENERATE FOR EACH MODULE
+---------------------------------------------------
+
+For every module generate:
+
+1. Folder structure
+2. Routing structure
+3. Angular module structure
+4. Page/component hierarchy
+5. Shared component strategy
+6. Reusable services
+7. API integration structure
+8. State management strategy
+9. Unit test structure
+10. Responsive UI implementation strategy
+
+---------------------------------------------------
+AUTH MODULE
+---------------------------------------------------
+
+Generate enterprise authentication UI.
+
+Pages:
+- Login
+- Register
+- Forgot Password
+- Reset Password
+
+Requirements:
+- Angular Material
+- Reactive Forms
+- Validation
+- JWT authentication integration
+- API-ready auth services
+- Error handling
+- Loading indicators
+- Mobile responsive layout
+- Desktop responsive layout
+- Best possible enterprise UI design
+- Premium login experience
+- Optional side illustration / branding panel
+- Modern card layout
+- Strong UX focus
+
+Generate:
+1. Components
+2. HTML
+3. SCSS
+4. TypeScript
+5. Auth services
+6. JWT interceptor
+7. Route guards
+8. Unit tests
+
+---------------------------------------------------
+TICKET MANAGEMENT MODULE
+---------------------------------------------------
+
+Generate enterprise Ticket Management UI.
+
+Pages:
+- Ticket List
+- Ticket Details
+- Create Ticket
+- Edit Ticket
+- Ticket Timeline
+- Comments Section
+- Attachments Upload
+
+Requirements:
+- Responsive UI
+- Angular Material data table
+- Pagination
+- Search
+- Advanced filters
+- Sorting
+- Status badges
+- Priority indicators
+- File upload
+- API integration
+- Timeline activity view
+- Comments thread
+- Loading skeletons
+- Empty states
+- Error handling
+
+Generate:
+1. Components
+2. HTML
+3. SCSS
+4. TypeScript
+5. Services
+6. API integration
+7. Unit tests
+
+---------------------------------------------------
+ADMIN DASHBOARD MODULE
+---------------------------------------------------
+
+Generate enterprise Admin Dashboard UI.
+
+Widgets:
+- Total Tickets
+- Open Tickets
+- Closed Tickets
+- SLA Metrics
+- Resolution Trends
+- Ticket Categories
+- User Statistics
+- Agent Performance
+- Ticket Volume Trends
+- Recent Activity Feed
+
+Requirements:
+- Charts and analytics widgets
+- KPI cards
+- Responsive dashboard layout
+- Dark/light mode support
+- Export reports
+- Date range filters
+- Dashboard refresh capability
+- API integration
+
+Use:
+- Angular Material
+- Chart library
+
+Generate:
+1. Dashboard components
+2. Widget components
+3. APIs integration
+4. Charts implementation
+5. HTML
+6. SCSS
+7. TypeScript
+8. Unit tests
+
+---------------------------------------------------
+EXPECTED OUTPUT FORMAT
+---------------------------------------------------
+
+For every generated page/component provide:
+
+- Angular folder path
+- Component name
+- HTML template
+- SCSS styles
+- TypeScript logic
+- Services
+- Models/interfaces
+- Routing configuration
+- API integration example
+- Unit tests
+
+Output should be:
+
+- Production-ready
+- Reusable
+- Scalable
+- Clean architecture
+- Enterprise UI quality
+- Fully responsive
+- Best possible look and feel
+- Suitable for real-world deployment
+
+TESTING
+Generate comprehensive JUnit 5 and Mockito unit tests.
+
+Requirements:
+- 90%+ coverage
+- Positive test cases
+- Negative test cases
+- Exception scenarios
+- Validation testing
+- Mock dependencies
+
+Generate tests for:
+- Services
+- Controllers
+- Security
+- Validation
+
+ANGULAR UNIT TESTS
+Generate Angular unit tests.
+
+Requirements:
+- Jasmine
+- Karma
+- Component tests
+- Service tests
+- Guard tests
+- Interceptor tests
+- Form validation tests
+
+Coverage:
+90%+
+
+DEVOPS & DEPLOYMENT
+Generate Docker setup for full-stack application.
+
+Requirements:
+- Angular container
+- Spring Boot container
+- PostgreSQL container
+- Nginx reverse proxy
+
+Generate:
+1. Dockerfiles
+2. docker-compose.yml
+3. Environment configs
+4. Health checks
+
+OPENSHIFT
+Generate Kubernetes and OpenShift deployment configuration.
+
+Requirements:
+- Deployment YAML
+- Service YAML
+- ConfigMaps
+- Secrets
+- Autoscaling
+- Resource limits
+- Rolling updates
+
+Environments:
+- DEV
+- QA
+- PROD
+
+GITHUB ACTIONS
+Generate enterprise GitHub Actions CI/CD pipeline.
+
+Pipeline stages:
+- Build
+- Unit tests
+- SonarQube
+- Security scan
+- Docker build
+- Push image
+- Kubernetes deployment
+
+Requirements:
+- Coverage reports
+- Dependency scanning
+- Quality gates
+
+SAFE AI DEVELOPMENT
+
+Use BEFORE modifying any generated code.
+
+Before making changes:
+1. Analyze existing functionality
+2. Identify dependencies
+3. Identify breaking change risks
+4. Preserve backward compatibility
+5. Explain impact analysis
+
+Then:
+- Refactor safely
+- Improve maintainability
+- Improve performance
+- Avoid breaking existing APIs
+
+After changes:
+- Provide regression tests
+- Provide rollback strategy
+STEP 19 — BUG FIXING PROMPT
+Analyze the bug carefully.
+
+Requirements:
+- Find root cause
+- Explain issue clearly
+- Fix safely
+- Avoid breaking existing functionality
+- Add regression tests
+
+Provide:
+1. Root cause analysis
+2. Code fix
+3. Test cases
+4. Prevention recommendations
+STEP 20 — PERFORMANCE OPTIMIZATION
+Analyze application performance.
+
+Backend:
+- Slow queries
+- Memory leaks
+- Thread blocking
+- API latency
+- Connection pooling
+
+Frontend:
+- Bundle size
+- Lazy loading
+- Rendering optimization
+- Memory leaks
+
+Provide:
+1. Bottleneck analysis
+2. Optimized code
+3. Benchmark improvements

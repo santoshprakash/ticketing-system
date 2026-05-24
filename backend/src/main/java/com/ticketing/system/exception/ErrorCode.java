@@ -1,0 +1,13 @@
+package com.ticketing.system.exception;
+
+public enum ErrorCode {
+    VALIDATION_ERROR,
+    RESOURCE_NOT_FOUND,
+    AUTHENTICATION_FAILED,
+    INVALID_TOKEN,
+    TOKEN_EXPIRED,
+    METHOD_NOT_ALLOWED,
+    CONFLICT,
+    BUSINESS_RULE_VIOLATION,
+    INTERNAL_ERROR
+}

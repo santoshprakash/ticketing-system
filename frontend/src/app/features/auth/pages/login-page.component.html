@@ -1,0 +1,91 @@
+<main class="login-page">
+  <section class="brand-panel" aria-label="Service operations platform">
+    <div class="brand-panel__top">
+      <div class="brand-logo">ST</div>
+      <span>Service Ticketing</span>
+    </div>
+
+    <div class="brand-panel__content">
+      <p class="eyebrow">Enterprise service desk</p>
+      <h1>Resolve customer requests with secure, SLA-aware operations.</h1>
+      <p class="brand-copy">A role-based workspace for customers, administrators, and service managers to manage tickets from intake to closure.</p>
+
+      <div class="insight-grid" aria-label="Platform highlights">
+        <article>
+          <mat-icon aria-hidden="true">verified_user</mat-icon>
+          <strong>JWT secured</strong>
+          <span>Role-aware access for every portal.</span>
+        </article>
+        <article>
+          <mat-icon aria-hidden="true">timer</mat-icon>
+          <strong>SLA tracking</strong>
+          <span>Escalation signals before deadlines slip.</span>
+        </article>
+        <article>
+          <mat-icon aria-hidden="true">query_stats</mat-icon>
+          <strong>Live metrics</strong>
+          <span>Operational health across all queues.</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="login-panel" aria-label="Sign in">
+    <mat-card class="login-card" appearance="outlined">
+      <header class="login-header">
+        <div class="mobile-brand">
+          <div class="brand-logo">ST</div>
+          <span>Service Ticketing</span>
+        </div>
+        <p class="eyebrow">Welcome back</p>
+        <h2>Sign in to your workspace</h2>
+        <p>Use your enterprise account to continue.</p>
+      </header>
+
+      <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <mat-form-field appearance="fill" floatLabel="auto">
+          <mat-label>Email address</mat-label>
+          <mat-icon matPrefix aria-hidden="true">mail</mat-icon>
+          <input matInput type="email" formControlName="email" autocomplete="email" placeholder="name@company.com">
+          @if (form.controls.email.hasError('required')) {
+            <mat-error>Email address is required.</mat-error>
+          } @else if (form.controls.email.hasError('email')) {
+            <mat-error>Enter a valid email address.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" floatLabel="auto">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix aria-hidden="true">lock</mat-icon>
+          <input matInput type="password" formControlName="password" autocomplete="current-password" placeholder="Enter password">
+          @if (form.controls.password.hasError('required')) {
+            <mat-error>Password is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="form-support">
+          <span>Protected session</span>
+          <a routerLink="/auth/forgot-password">Forgot password?</a>
+        </div>
+
+        @if (error()) {
+          <div class="form-error" role="alert">
+            <mat-icon aria-hidden="true">error</mat-icon>
+            <span>{{ error() }}</span>
+          </div>
+        }
+
+        <button class="signin-button" mat-flat-button color="primary" type="submit" [disabled]="loading()">
+          @if (loading()) {
+            <mat-spinner diameter="18" />
+            <span>Signing in</span>
+          } @else {
+            <span>Sign in</span>
+          }
+        </button>
+
+        <p class="create-account">New customer? <a routerLink="/auth/register">Create an account</a></p>
+      </form>
+    </mat-card>
+  </section>
+</main>

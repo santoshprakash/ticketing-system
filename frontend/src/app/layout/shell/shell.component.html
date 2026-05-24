@@ -1,0 +1,58 @@
+<mat-sidenav-container class="app-shell">
+  <mat-sidenav #drawer class="app-shell__nav" [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()">
+    <div class="brand">
+      <div class="brand__mark">ST</div>
+      <div>
+        <p class="brand__name">Service Ticketing</p>
+        <p class="brand__caption">Enterprise Operations</p>
+      </div>
+    </div>
+
+    <nav class="nav-list" aria-label="Primary navigation">
+      @for (item of visibleNavItems(); track item.path) {
+        <a
+          mat-button
+          [routerLink]="item.path"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: item.path === '/dashboard' }"
+          (click)="isMobile() && drawer.close()"
+        >
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="app-shell__content">
+    <mat-toolbar class="topbar">
+      <button mat-icon-button class="topbar__menu" type="button" (click)="drawer.toggle()" aria-label="Toggle navigation">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="topbar__search" aria-label="Global search">
+        <mat-icon>search</mat-icon>
+        <span>Search tickets, customers, assignments</span>
+      </div>
+      <span class="topbar__spacer"></span>
+      <button mat-icon-button type="button" (click)="themeService.toggle()" aria-label="Toggle theme">
+        <mat-icon>{{ themeService.theme() === 'light' ? 'dark_mode' : 'light_mode' }}</mat-icon>
+      </button>
+      <button mat-button type="button" (click)="openChangePassword()">
+        <mat-icon>password</mat-icon>
+        <span class="topbar__password-text">Change password</span>
+      </button>
+      <button mat-button type="button" (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        <span class="topbar__logout-text">Sign out</span>
+      </button>
+    </mat-toolbar>
+
+    @if (loadingService.loading()) {
+      <mat-progress-bar mode="indeterminate" />
+    }
+
+    <main class="page-shell">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

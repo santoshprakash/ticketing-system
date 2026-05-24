@@ -1,0 +1,132 @@
+.app-shell {
+  min-height: 100vh;
+  background: var(--app-bg);
+
+  &__nav {
+    width: 292px;
+    background: var(--app-surface);
+    border-right: 1px solid var(--app-border);
+  }
+
+  &__content {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--app-border);
+
+  &__mark {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--app-brand), #19a7ce);
+  }
+
+  &__name,
+  &__caption {
+    margin: 0;
+  }
+
+  &__name {
+    font-weight: 700;
+  }
+
+  &__caption {
+    color: var(--app-subtle);
+    font-size: 12px;
+  }
+}
+
+.nav-list {
+  display: grid;
+  gap: 6px;
+  padding: 16px 12px;
+
+  a {
+    justify-content: flex-start;
+    height: 44px;
+    color: var(--app-subtle);
+    border-radius: 8px;
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+
+    &:hover,
+    &.is-active {
+      color: var(--app-text);
+      background: var(--app-surface-muted);
+      transform: translateX(2px);
+    }
+  }
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: 12px;
+  background: color-mix(in srgb, var(--app-surface) 92%, transparent);
+  border-bottom: 1px solid var(--app-border);
+  backdrop-filter: blur(14px);
+
+  &__menu {
+    display: none;
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: min(480px, 44vw);
+    height: 40px;
+    padding: 0 12px;
+    color: var(--app-subtle);
+    background: var(--app-surface-muted);
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  &__spacer {
+    flex: 1;
+  }
+}
+
+@media (max-width: 960px) {
+  .app-shell__nav {
+    width: min(292px, 82vw);
+  }
+
+  .topbar__menu {
+    display: inline-flex;
+  }
+
+  .topbar__search {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand {
+    padding: 16px;
+  }
+
+  .topbar {
+    min-height: 56px;
+    height: 56px;
+    padding: 0 8px;
+  }
+
+  .topbar__logout-text,
+  .topbar__password-text {
+    display: none;
+  }
+}

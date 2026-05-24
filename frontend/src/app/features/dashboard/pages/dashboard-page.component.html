@@ -1,0 +1,61 @@
+<app-page-header eyebrow="Dashboard" title="Operational command center" description="Monitor ticket volume, SLA exposure, escalations, and service throughput.">
+  <button mat-stroked-button type="button">
+    <mat-icon>download</mat-icon>
+    Export
+  </button>
+  <button mat-flat-button color="primary" type="button">
+    <mat-icon>refresh</mat-icon>
+    Refresh
+  </button>
+</app-page-header>
+
+@if (overview$ | async; as overview) {
+  <section class="metrics-grid">
+    @for (metric of overview.metrics; track metric.label) {
+      <app-metric-card [label]="metric.label" [value]="metric.value" [caption]="metric.caption" [icon]="metric.icon" [tone]="metric.tone" />
+    }
+  </section>
+
+  <section class="analytics-grid">
+    <app-chart-card title="Ticket volume trends" subtitle="Created versus resolved tickets across the current week" [config]="overview.volumeChart" />
+    <app-chart-card title="SLA health" subtitle="Current contractual exposure across active queues" [config]="overview.slaChart" />
+  </section>
+
+  <section class="dashboard-grid">
+    <mat-card class="surface activity-card">
+      <header>
+        <h3>Recent activity</h3>
+        <button mat-button type="button">View all</button>
+      </header>
+      <div class="activity-feed">
+        @for (activity of overview.activity; track activity.id) {
+          <article>
+            <span></span>
+            <div>
+              <strong>{{ activity.actor }}</strong>
+              <p>{{ activity.action }}</p>
+              <small>{{ activity.time }}</small>
+            </div>
+          </article>
+        }
+      </div>
+    </mat-card>
+
+    <mat-card class="surface performance-card">
+      <h3>Agent performance</h3>
+      <div class="agent-row"><span>Network Operations</span><strong>96%</strong></div>
+      <div class="bar"><i style="width: 96%"></i></div>
+      <div class="agent-row"><span>Application Support</span><strong>91%</strong></div>
+      <div class="bar"><i style="width: 91%"></i></div>
+      <div class="agent-row"><span>Billing Desk</span><strong>88%</strong></div>
+      <div class="bar"><i style="width: 88%"></i></div>
+    </mat-card>
+  </section>
+} @else {
+  <div class="metrics-grid">
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+    <div class="skeleton"></div>
+  </div>
+}

@@ -1,0 +1,24 @@
+<app-page-header eyebrow="Service Manager" title="Service workspace" description="Balance workloads, monitor SLA risk, and coordinate escalations.">
+  <button mat-flat-button color="primary" type="button">
+    <mat-icon>assignment_ind</mat-icon>
+    Bulk assign
+  </button>
+</app-page-header>
+
+<section class="queue-grid">
+  @for (queue of queues; track queue.name) {
+    <app-metric-card [label]="queue.name" [value]="queue.count" [caption]="queue.caption" [icon]="queue.icon" [tone]="queue.tone" />
+  }
+</section>
+
+<mat-card class="surface manager-board">
+  <header>
+    <h3>Priority operating lanes</h3>
+    <button mat-stroked-button type="button">Open assignment board</button>
+  </header>
+  <div class="lanes">
+    <article><strong>Critical escalations</strong><span>3 tickets require senior response</span></article>
+    <article><strong>Customer waiting</strong><span>14 tickets awaiting response</span></article>
+    <article><strong>Ready to close</strong><span>9 tickets pending customer confirmation</span></article>
+  </div>
+</mat-card>

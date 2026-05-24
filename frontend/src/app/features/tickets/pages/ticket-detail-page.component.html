@@ -1,0 +1,60 @@
+@if (ticket$ | async; as ticket) {
+  <app-page-header eyebrow="Ticket" [title]="ticket.ticketNumber" [description]="ticket.title">
+    <a mat-stroked-button routerLink="/tickets">
+      <mat-icon>arrow_back</mat-icon>
+      Queue
+    </a>
+    <a mat-stroked-button [routerLink]="['/tickets', ticket.id, 'edit']">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </a>
+    @if (ticket.status === 'RESOLVED') {
+      <button mat-flat-button color="primary" type="button" (click)="reopen(ticket)">
+        <mat-icon>replay</mat-icon>
+        Reopen
+      </button>
+    } @else {
+      <button mat-flat-button color="primary" type="button" (click)="resolve(ticket)">
+        <mat-icon>task_alt</mat-icon>
+        Resolve
+      </button>
+    }
+  </app-page-header>
+
+  <section class="detail-grid">
+    <mat-card class="surface summary-card">
+      <div class="chip-row">
+        <app-status-chip [label]="ticket.status" />
+        <app-status-chip [label]="ticket.priority" />
+        <span class="sla" [class.breached]="ticket.slaBreached">{{ ticket.slaBreached ? 'SLA breached' : 'SLA on track' }}</span>
+      </div>
+      <p>{{ ticket.description }}</p>
+    </mat-card>
+
+    <mat-card class="surface facts-card">
+      <h3>Ticket facts</h3>
+      <dl>
+        <div><dt>Category</dt><dd>{{ ticket.category }}</dd></div>
+        <div><dt>Created by</dt><dd>{{ ticket.createdBy }}</dd></div>
+        <div><dt>Assigned to</dt><dd>{{ ticket.assignedTo || 'Unassigned' }}</dd></div>
+        <div><dt>Escalation</dt><dd>Level {{ ticket.escalationLevel }}</dd></div>
+        <div><dt>Created</dt><dd>{{ ticket.createdAt | date: 'medium' }}</dd></div>
+        <div><dt>Resolution due</dt><dd>{{ ticket.resolutionDueAt ? (ticket.resolutionDueAt | date: 'medium') : 'Not scheduled' }}</dd></div>
+      </dl>
+    </mat-card>
+  </section>
+
+  <mat-card class="surface workbench">
+    <mat-tab-group animationDuration="180ms">
+      <mat-tab label="Timeline">
+        <app-ticket-timeline [history]="(history$ | async) ?? []" />
+      </mat-tab>
+      <mat-tab label="Comments">
+        <app-ticket-comments [comments]="(comments$ | async) ?? []" (addComment)="addComment(ticket.id, $event)" />
+      </mat-tab>
+      <mat-tab label="Attachments">
+        <app-ticket-attachments [attachments]="(attachments$ | async) ?? []" (upload)="uploadAttachment(ticket.id, $event)" />
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+}

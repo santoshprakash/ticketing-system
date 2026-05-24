@@ -1,0 +1,621 @@
+{
+  "info": {
+    "name": "Service Ticketing - Complete API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    },
+    {
+      "key": "ticketId",
+      "value": "20000000-0000-0000-0000-000000000003"
+    },
+    {
+      "key": "assigneeId",
+      "value": "10000000-0000-0000-0000-000000000021"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"New Customer\",\n  \"email\": \"new.customer@ticketing.local\",\n  \"password\": \"Password123!\",\n  \"phoneNumber\": \"+10000000099\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/v1/auth/register",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fullName\": \"New Customer\",\n  \"email\": \"new.customer@ticketing.local\",\n  \"password\": \"Password123!\",\n  \"phoneNumber\": \"+10000000099\"\n}"
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.sample.access\",\n  \"refreshToken\": \"sample-refresh-token\",\n  \"tokenType\": \"Bearer\",\n  \"expiresIn\": 900,\n  \"user\": {\n    \"id\": \"10000000-0000-0000-0000-000000000031\",\n    \"email\": \"new.customer@ticketing.local\",\n    \"fullName\": \"New Customer\",\n    \"role\": \"CUSTOMER\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer.acme@ticketing.local\",\n  \"password\": \"Password123!\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/v1/auth/login",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"customer.acme@ticketing.local\",\n  \"password\": \"Password123!\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.sample.access\",\n  \"refreshToken\": \"sample-refresh-token\",\n  \"tokenType\": \"Bearer\",\n  \"expiresIn\": 900,\n  \"user\": {\n    \"id\": \"10000000-0000-0000-0000-000000000031\",\n    \"email\": \"customer.acme@ticketing.local\",\n    \"fullName\": \"Acme Customer\",\n    \"role\": \"CUSTOMER\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/auth/refresh",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/v1/auth/refresh",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.sample.new-access\",\n  \"refreshToken\": \"sample-new-refresh-token\",\n  \"tokenType\": \"Bearer\",\n  \"expiresIn\": 900,\n  \"user\": {\n    \"id\": \"10000000-0000-0000-0000-000000000031\",\n    \"email\": \"customer.acme@ticketing.local\",\n    \"fullName\": \"Acme Customer\",\n    \"role\": \"CUSTOMER\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/auth/forgot-password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer.acme@ticketing.local\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/v1/auth/forgot-password",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"customer.acme@ticketing.local\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"If the account exists, password reset instructions have been sent.\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/auth/reset-password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"sample-reset-token\",\n  \"newPassword\": \"NewPassword123!\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": "{{baseUrl}}/api/v1/auth/reset-password",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"sample-reset-token\",\n  \"newPassword\": \"NewPassword123!\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"message\": \"Password has been reset successfully.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Portal login issue\",\n  \"description\": \"Customer cannot access the service portal after password reset.\",\n  \"priority\": \"HIGH\",\n  \"category\": \"ACCESS\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets"
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000005\",\n  \"ticketNumber\": \"TCK-2026-000005\",\n  \"title\": \"Portal login issue\",\n  \"description\": \"Customer cannot access the service portal after password reset.\",\n  \"status\": \"OPEN\",\n  \"priority\": \"HIGH\",\n  \"category\": \"ACCESS\",\n  \"createdBy\": \"10000000-0000-0000-0000-000000000031\",\n  \"assignedTo\": null,\n  \"firstResponseDueAt\": \"2026-05-24T18:30:00Z\",\n  \"firstRespondedAt\": null,\n  \"resolutionDueAt\": \"2026-05-25T18:30:00Z\",\n  \"resolvedAt\": null,\n  \"closedAt\": null,\n  \"slaBreached\": false,\n  \"escalationLevel\": 0,\n  \"createdAt\": \"2026-05-24T15:00:00Z\",\n  \"updatedAt\": \"2026-05-24T15:00:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Search Tickets",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/search?status=IN_PROGRESS&page=0&size=20&sort=createdAt,desc"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/search?status=IN_PROGRESS&page=0&size=20&sort=createdAt,desc"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"20000000-0000-0000-0000-000000000003\",\n      \"ticketNumber\": \"TCK-2026-000003\",\n      \"title\": \"Production VPN outage for branch office\",\n      \"status\": \"IN_PROGRESS\",\n      \"priority\": \"CRITICAL\",\n      \"category\": \"NETWORK\",\n      \"createdBy\": \"10000000-0000-0000-0000-000000000003\",\n      \"assignedTo\": \"10000000-0000-0000-0000-000000000021\",\n      \"slaBreached\": false,\n      \"escalationLevel\": 1\n    }\n  ],\n  \"pageable\": {\n    \"pageNumber\": 0,\n    \"pageSize\": 20\n  },\n  \"totalElements\": 1,\n  \"totalPages\": 1,\n  \"last\": true,\n  \"first\": true,\n  \"size\": 20,\n  \"number\": 0,\n  \"numberOfElements\": 1,\n  \"empty\": false\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"title\": \"Production VPN outage for branch office\",\n  \"description\": \"Branch users cannot connect to the production VPN and critical support workflows are blocked.\",\n  \"status\": \"IN_PROGRESS\",\n  \"priority\": \"CRITICAL\",\n  \"category\": \"NETWORK\",\n  \"createdBy\": \"10000000-0000-0000-0000-000000000003\",\n  \"assignedTo\": \"10000000-0000-0000-0000-000000000021\",\n  \"firstResponseDueAt\": \"2026-05-24T12:30:00Z\",\n  \"firstRespondedAt\": \"2026-05-24T12:15:00Z\",\n  \"resolutionDueAt\": \"2026-05-24T19:00:00Z\",\n  \"resolvedAt\": null,\n  \"closedAt\": null,\n  \"slaBreached\": false,\n  \"escalationLevel\": 1,\n  \"createdAt\": \"2026-05-24T10:00:00Z\",\n  \"updatedAt\": \"2026-05-24T12:45:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Ticket",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Production VPN outage for branch office\",\n  \"description\": \"Branch users cannot connect to the production VPN and critical support workflows remain blocked.\",\n  \"priority\": \"CRITICAL\",\n  \"category\": \"NETWORK\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"title\": \"Production VPN outage for branch office\",\n  \"status\": \"IN_PROGRESS\",\n  \"priority\": \"CRITICAL\",\n  \"category\": \"NETWORK\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Assign Ticket",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/assignment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assigneeId\": \"{{assigneeId}}\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/assignment"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"status\": \"ASSIGNED\",\n  \"assignedTo\": \"10000000-0000-0000-0000-000000000021\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Change Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"IN_PROGRESS\",\n  \"reason\": \"Service manager started investigation\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/status"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"status\": \"IN_PROGRESS\",\n  \"assignedTo\": \"10000000-0000-0000-0000-000000000021\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Resolve Ticket",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/resolve"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/resolve"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"status\": \"RESOLVED\",\n  \"resolvedAt\": \"2026-05-24T15:30:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reopen Ticket",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/reopen"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "PATCH",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/reopen"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"id\": \"20000000-0000-0000-0000-000000000003\",\n  \"ticketNumber\": \"TCK-2026-000003\",\n  \"status\": \"REOPENED\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/comments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"We verified the VPN tunnel and are monitoring reconnection attempts.\",\n  \"internal\": false\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/comments"
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": \"40000000-0000-0000-0000-000000000004\",\n  \"ticketId\": \"20000000-0000-0000-0000-000000000003\",\n  \"authorId\": \"10000000-0000-0000-0000-000000000021\",\n  \"message\": \"We verified the VPN tunnel and are monitoring reconnection attempts.\",\n  \"internal\": false,\n  \"createdAt\": \"2026-05-24T15:30:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Comments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/comments/search?page=0&size=20&sort=createdAt,asc"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/comments/search?page=0&size=20&sort=createdAt,asc"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"40000000-0000-0000-0000-000000000002\",\n      \"ticketId\": \"20000000-0000-0000-0000-000000000003\",\n      \"authorId\": \"10000000-0000-0000-0000-000000000021\",\n      \"message\": \"Network team is checking firewall tunnel health and upstream route propagation.\",\n      \"internal\": true,\n      \"createdAt\": \"2026-05-24T12:45:00Z\"\n    }\n  ],\n  \"totalElements\": 1,\n  \"totalPages\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add Attachment Metadata",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/attachments",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fileName\": \"vpn-report.txt\",\n  \"contentType\": \"text/plain\",\n  \"fileSizeBytes\": 20480,\n  \"storageKey\": \"tickets/2026/TCK-2026-000003/vpn-report.txt\",\n  \"checksumSha256\": \"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/attachments"
+              },
+              "status": "Created",
+              "code": 201,
+              "body": "{\n  \"id\": \"50000000-0000-0000-0000-000000000004\",\n  \"ticketId\": \"20000000-0000-0000-0000-000000000003\",\n  \"uploadedBy\": \"10000000-0000-0000-0000-000000000021\",\n  \"fileName\": \"vpn-report.txt\",\n  \"contentType\": \"text/plain\",\n  \"fileSizeBytes\": 20480,\n  \"storageKey\": \"tickets/2026/TCK-2026-000003/vpn-report.txt\",\n  \"checksumSha256\": \"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\",\n  \"createdAt\": \"2026-05-24T15:30:00Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "List Attachments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/attachments/search?page=0&size=20&sort=createdAt,desc"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/attachments/search?page=0&size=20&sort=createdAt,desc"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"50000000-0000-0000-0000-000000000002\",\n      \"ticketId\": \"20000000-0000-0000-0000-000000000003\",\n      \"uploadedBy\": \"10000000-0000-0000-0000-000000000021\",\n      \"fileName\": \"vpn-diagnostics.txt\",\n      \"contentType\": \"text/plain\",\n      \"fileSizeBytes\": 32768,\n      \"storageKey\": \"tickets/2026/TCK-2026-000003/vpn-diagnostics.txt\",\n      \"checksumSha256\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"\n    }\n  ],\n  \"totalElements\": 1,\n  \"totalPages\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "List History",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/history/search?page=0&size=20&sort=createdAt,desc"
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": "{{baseUrl}}/api/v1/tickets/{{ticketId}}/history/search?page=0&size=20&sort=createdAt,desc"
+              },
+              "status": "OK",
+              "code": 200,
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"60000000-0000-0000-0000-000000000002\",\n      \"ticketId\": \"20000000-0000-0000-0000-000000000003\",\n      \"actorId\": \"10000000-0000-0000-0000-000000000011\",\n      \"eventType\": \"ESCALATED\",\n      \"previousValue\": \"{\\\"escalationLevel\\\":0}\",\n      \"newValue\": \"{\\\"escalationLevel\\\":1,\\\"escalatedTo\\\":\\\"10000000-0000-0000-0000-000000000011\\\"}\",\n      \"description\": \"Critical VPN outage escalated for management visibility.\",\n      \"createdAt\": \"2026-05-24T12:45:00Z\"\n    }\n  ],\n  \"totalElements\": 1,\n  \"totalPages\": 1\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

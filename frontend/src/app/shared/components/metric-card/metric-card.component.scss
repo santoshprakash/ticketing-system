@@ -1,0 +1,52 @@
+.metric-card {
+  min-height: 7.75rem;
+  border: 1px solid var(--app-border);
+  border-radius: 0.5rem;
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+  padding: 1.1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .label,
+  small {
+    color: var(--app-subtle);
+  }
+
+  .label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0;
+  }
+
+  strong {
+    display: block;
+    margin-top: 0.65rem;
+    color: var(--app-text);
+    font-size: clamp(1.8rem, 4vw, 2.35rem);
+    line-height: 1;
+  }
+
+  small {
+    display: block;
+    margin-top: 0.55rem;
+    line-height: 1.45;
+  }
+
+  mat-icon {
+    border-radius: 0.5rem;
+    padding: 0.55rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    flex: 0 0 auto;
+  }
+}
+
+.tone-brand mat-icon { background: #eef2ff; color: #4f46e5; }
+.tone-green mat-icon { background: #dcfce7; color: #15803d; }
+.tone-amber mat-icon { background: #fef3c7; color: #b45309; }
+.tone-red mat-icon { background: #fee2e2; color: #b91c1c; }

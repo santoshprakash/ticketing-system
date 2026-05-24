@@ -1,0 +1,18 @@
+@if (history().length) {
+  <ol class="timeline">
+    @for (item of history(); track item.id) {
+      <li>
+        <span class="marker"><mat-icon aria-hidden="true">history</mat-icon></span>
+        <div>
+          <strong>{{ item.action.replaceAll('_', ' ') }}</strong>
+          <p>{{ item.actorName }} · {{ item.createdAt | date: 'medium' }}</p>
+          @if (item.note) {
+            <small>{{ item.note }}</small>
+          }
+        </div>
+      </li>
+    }
+  </ol>
+} @else {
+  <app-empty-state icon="timeline" title="No timeline entries" description="Ticket activity will appear after changes are made." />
+}

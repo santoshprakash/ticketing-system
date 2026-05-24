@@ -1,0 +1,85 @@
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.8fr);
+  gap: 1rem;
+}
+
+.summary-card,
+.facts-card,
+.workbench {
+  padding: 1.15rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.summary-card p {
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.sla {
+  border-radius: 0.35rem;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+
+  &.breached {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+}
+
+.facts-card {
+  h3 {
+    margin: 0 0 1rem;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 750;
+  }
+
+  dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  div {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.8fr) 1fr;
+    gap: 0.75rem;
+  }
+
+  dt {
+    color: var(--color-muted-text);
+    font-size: 0.82rem;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text);
+    font-weight: 650;
+    overflow-wrap: anywhere;
+  }
+}
+
+.workbench {
+  margin-top: 1rem;
+}
+
+:host ::ng-deep .mat-mdc-tab-body-content {
+  padding: 1rem 0 0;
+}
+
+@media (max-width: 960px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

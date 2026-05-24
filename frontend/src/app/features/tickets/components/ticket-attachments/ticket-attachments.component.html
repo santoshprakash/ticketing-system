@@ -1,0 +1,23 @@
+<div class="upload-row">
+  <input #fileInput class="sr-only" type="file" (change)="onFileSelected($event)">
+  <button mat-stroked-button type="button" (click)="fileInput.click()">
+    <mat-icon>upload_file</mat-icon>
+    Upload attachment
+  </button>
+</div>
+
+@if (attachments().length) {
+  <div class="attachments">
+    @for (attachment of attachments(); track attachment.id) {
+      <article>
+        <mat-icon aria-hidden="true">attach_file</mat-icon>
+        <div>
+          <strong>{{ attachment.fileName }}</strong>
+          <span>{{ attachment.size / 1024 | number: '1.0-0' }} KB · {{ attachment.createdAt | date: 'mediumDate' }}</span>
+        </div>
+      </article>
+    }
+  </div>
+} @else {
+  <app-empty-state icon="attach_file" title="No attachments" description="Upload logs, screenshots, invoices, or service evidence." />
+}

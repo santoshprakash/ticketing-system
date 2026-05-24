@@ -1,0 +1,32 @@
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1.25rem;
+  text-align: center;
+
+  mat-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: inline-grid;
+    place-items: center;
+    background: var(--color-muted);
+    color: var(--color-brand);
+    font-size: 1.65rem;
+  }
+
+  h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    max-width: 30rem;
+    color: var(--color-muted-text);
+    line-height: 1.6;
+  }
+}

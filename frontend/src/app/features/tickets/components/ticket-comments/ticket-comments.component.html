@@ -1,0 +1,30 @@
+<form class="comment-form" [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Add comment</mat-label>
+    <textarea matInput rows="3" formControlName="comment"></textarea>
+    <mat-error>Comment must be at least 3 characters.</mat-error>
+  </mat-form-field>
+  <div class="comment-actions">
+    <mat-checkbox formControlName="internal">Internal note</mat-checkbox>
+    <button mat-flat-button color="primary" type="submit">Add comment</button>
+  </div>
+</form>
+
+@if (comments().length) {
+  <div class="comments">
+    @for (comment of comments(); track comment.id) {
+      <article>
+        <header>
+          <strong>{{ comment.authorName }}</strong>
+          <span>{{ comment.createdAt | date: 'medium' }}</span>
+          @if (comment.internal) {
+            <em>Internal</em>
+          }
+        </header>
+        <p>{{ comment.comment }}</p>
+      </article>
+    }
+  </div>
+} @else {
+  <app-empty-state icon="forum" title="No comments yet" description="Use comments to capture customer updates and service notes." />
+}

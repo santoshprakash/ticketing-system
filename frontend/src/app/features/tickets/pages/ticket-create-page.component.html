@@ -1,0 +1,50 @@
+<app-page-header eyebrow="Tickets" title="Create ticket" description="Capture the issue, priority, and category for SLA routing.">
+  <a mat-stroked-button routerLink="/tickets">
+    <mat-icon>arrow_back</mat-icon>
+    Back to queue
+  </a>
+</app-page-header>
+
+<mat-card class="surface ticket-form">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" autocomplete="off">
+      <mat-error>Title must be 5 to 150 characters.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="7" formControlName="description"></textarea>
+      <mat-error>Description must be at least 20 characters.</mat-error>
+    </mat-form-field>
+
+    <div class="form-grid">
+      <mat-form-field appearance="fill">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          @for (priority of priorities; track priority) {
+            <mat-option [value]="priority">{{ priority }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          @for (category of categories; track category) {
+            <mat-option [value]="category">{{ category }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <footer>
+      <button mat-stroked-button type="button" routerLink="/tickets">Cancel</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+        <mat-icon>save</mat-icon>
+        Create ticket
+      </button>
+    </footer>
+  </form>
+</mat-card>
