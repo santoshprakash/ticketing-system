@@ -447,6 +447,14 @@ Ctrl + Shift + P -> Developer: Reload Window
 - Use a managed PostgreSQL service or secured database credentials.
 - Seed/demo accounts are for local development only.
 
+## Sample App UI 
+<img width="1866" height="964" alt="image" src="https://github.com/user-attachments/assets/013aac49-a7ed-44ca-a0f4-a335f2f2172b" />
+
+<img width="1878" height="834" alt="image" src="https://github.com/user-attachments/assets/8e054902-f73c-4b1b-9f39-4cc07988a02d" />
+<img width="554" height="635" alt="image" src="https://github.com/user-attachments/assets/0096c3e1-0dbc-42e0-90ee-2a7a7348442e" />
+
+
+
 ## License
 
 Add your project license before publishing this repository publicly.
