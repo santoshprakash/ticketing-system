@@ -5,7 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,9 +27,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            @NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
     ) throws ServletException, IOException {
         String token = resolveToken(request);
         if (token == null) {
@@ -53,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
-    private static String resolveToken(@NonNull HttpServletRequest request) {
+    private static String resolveToken(HttpServletRequest request) {
         String header = request.getHeader(AUTHORIZATION);
         if (!StringUtils.hasText(header) || !header.startsWith(BEARER_PREFIX)) {
             return null;

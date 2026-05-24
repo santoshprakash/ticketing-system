@@ -2,7 +2,6 @@ package com.ticketing.system.auth.application;
 
 import com.ticketing.system.auth.infrastructure.UserRepository;
 import java.util.List;
-import org.springframework.lang.NonNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +21,7 @@ public class DatabaseUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public @NonNull UserDetails loadUserByUsername(@NonNull String username) {
+    public UserDetails loadUserByUsername(String username) {
         var user = userRepository.findByEmailIgnoreCaseAndDeletedAtIsNull(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
         return new User(

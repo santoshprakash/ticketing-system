@@ -9,21 +9,15 @@ import com.ticketing.system.ticket.dto.AddTicketAttachmentRequest;
 import com.ticketing.system.ticket.dto.CreateTicketRequest;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class RequestValidationTest {
 
-    private static Validator validator;
-
-    @BeforeAll
-    static void setUpValidator() {
-        validator = Validation.buildDefaultValidatorFactory().getValidator();
-    }
+    private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void registerRequestShouldRequireStrongPasswordAndValidEmail() {
-        var violations = validator.validate(new RegisterRequest("A", "not-email", "weak", null));
+        var violations = VALIDATOR.validate(new RegisterRequest("A", "not-email", "weak", null));
 
         assertThat(violations)
                 .extracting(violation -> violation.getPropertyPath().toString())
@@ -32,14 +26,14 @@ class RequestValidationTest {
 
     @Test
     void resetPasswordRequestShouldAcceptStrongPassword() {
-        var violations = validator.validate(new ResetPasswordRequest("reset-token", "NewPassword123!"));
+        var violations = VALIDATOR.validate(new ResetPasswordRequest("reset-token", "NewPassword123!"));
 
         assertThat(violations).isEmpty();
     }
 
     @Test
     void createTicketRequestShouldRequireMinimumTextAndPriority() {
-        var violations = validator.validate(new CreateTicketRequest("Bad", "Too short", null, ""));
+        var violations = VALIDATOR.validate(new CreateTicketRequest("Bad", "Too short", null, ""));
 
         assertThat(violations)
                 .extracting(violation -> violation.getPropertyPath().toString())
@@ -48,7 +42,7 @@ class RequestValidationTest {
 
     @Test
     void attachmentRequestShouldValidateSizeAndChecksum() {
-        var violations = validator.validate(new AddTicketAttachmentRequest(
+        var violations = VALIDATOR.validate(new AddTicketAttachmentRequest(
                 "error.png",
                 "image/png",
                 0,
@@ -63,7 +57,7 @@ class RequestValidationTest {
 
     @Test
     void createTicketRequestShouldAcceptValidPayload() {
-        var violations = validator.validate(new CreateTicketRequest(
+        var violations = VALIDATOR.validate(new CreateTicketRequest(
                 "Portal login issue",
                 "Customer cannot access the service portal after MFA reset.",
                 TicketPriority.HIGH,

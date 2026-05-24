@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 import org.slf4j.MDC;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,9 +19,9 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(
-            @NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
     ) throws ServletException, IOException {
         String correlationId = resolveCorrelationId(request);
         MDC.put(MDC_KEY, correlationId);
@@ -34,7 +33,7 @@ public class CorrelationIdFilter extends OncePerRequestFilter {
         }
     }
 
-    private static String resolveCorrelationId(@NonNull HttpServletRequest request) {
+    private static String resolveCorrelationId(HttpServletRequest request) {
         String headerValue = request.getHeader(HEADER_NAME);
         return StringUtils.hasText(headerValue) ? headerValue : UUID.randomUUID().toString();
     }
